@@ -17,7 +17,7 @@ object DatabaseFactory {
             jdbcUrl = "jdbc:postgresql://localhost:5432/smartcut_app"
             driverClassName = "org.postgresql.Driver"
             username = "postgres"
-            password = "postgres"
+            password = "password"
             maximumPoolSize = 10
         }
 

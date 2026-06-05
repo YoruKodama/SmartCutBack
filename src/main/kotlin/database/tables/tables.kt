@@ -40,4 +40,3 @@ object CutSettingsTable : Table("cut_settings") {
     val updatedAt = timestamp("updated_at").default(Instant.now())
     override val primaryKey = PrimaryKey(id)
 }
-obje
