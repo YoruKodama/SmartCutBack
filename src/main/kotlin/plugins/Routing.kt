@@ -1,5 +1,6 @@
 package com.example.smartcut.plugins
 
+import com.example.smartcut.repositories.CutSettingsRepository
 import com.example.smartcut.repositories.RecipeRepository
 import com.example.smartcut.repositories.UserRepository
 import com.example.smartcut.routing.auth.authRoutes
@@ -8,14 +9,20 @@ import com.example.smartcut.services.AuthService
 import com.example.smartcut.services.RecipeService
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
+import com.example.smartcut.routing.cutSettings.cutSettingsRoutes
+import com.example.smartcut.services.CutSettingsService
 
 fun Application.configureRouting() {
     val userRepository = UserRepository()
     val recipeRepository = RecipeRepository()
+    val cutSettingsRepository = CutSettingsRepository()
     val authService = AuthService(userRepository)
     val recipeService = RecipeService(recipeRepository)
+    val cutSettingsService = CutSettingsService(cutSettingsRepository)
+
     routing {
         authRoutes(authService)
         recipeRoutes(recipeService)
+        cutSettingsRoutes(cutSettingsService)
     }
 }
