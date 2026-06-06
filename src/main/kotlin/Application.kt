@@ -1,5 +1,6 @@
 package com.example.smartcut
 
+import com.example.smartcut.database.DataSeeder
 import com.example.smartcut.database.DatabaseFactory
 import com.example.smartcut.plugins.configureRouting
 import com.example.smartcut.plugins.configureSecurity
@@ -15,11 +16,17 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
-    DatabaseFactory.init()
+
     configureSerialization()
     configureErrorHandling()
+    DatabaseFactory.init()
     configureSecurity()
     configureRouting()
+
+    val baseUrl = environment.config.propertyOrNull("app.baseUrl")?.getString() ?: "http://localhost:8080"
+    kotlinx.coroutines.runBlocking {
+        DataSeeder.seed(baseUrl)
+    }
 }
 fun Application.configureErrorHandling() {
     install(StatusPages) {

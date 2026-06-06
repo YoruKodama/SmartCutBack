@@ -31,6 +31,7 @@ object DatabaseFactory {
                 IngredientsTable,
                 CutSettingsTable
             )
+            SchemaUtils.createMissingTablesAndColumns(IngredientsTable)
         }
     }
 }

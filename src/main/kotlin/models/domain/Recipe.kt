@@ -13,5 +13,6 @@ data class Ingredient(
     val id: Int,
     val name: String,
     val amount: String?,
-    val recipeId: Int
+    val recipeId: Int,
+    val cuttable: Boolean = false
 )

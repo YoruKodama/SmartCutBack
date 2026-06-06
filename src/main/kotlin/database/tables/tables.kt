@@ -27,6 +27,7 @@ object IngredientsTable : Table("ingredients") {
     val id = integer("id").autoIncrement()
     val name = varchar("name", 255)
     val amount = varchar("amount", 100).nullable()
+    val cuttable = bool("cuttable").default(false)
     val recipeId = integer("recipe_id").references(RecipesTable.id)
     override val primaryKey = PrimaryKey(id)
 }

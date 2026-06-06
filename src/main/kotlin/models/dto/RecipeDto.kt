@@ -13,7 +13,8 @@ data class RecipeRequest(
 @Serializable
 data class IngredientRequest(
     val name: String,
-    val amount: String? = null
+    val amount: String? = null,
+    val cuttable: Boolean = false
 )
 
 @Serializable
@@ -30,5 +31,9 @@ data class RecipeResponse(
 data class IngredientResponse(
     val id: Int,
     val name: String,
-    val amount: String?
+    val amount: String?,
+    val cuttable: Boolean = false
 )
+
+@Serializable
+data class UploadResponse(val url: String)

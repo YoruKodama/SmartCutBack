@@ -4,3 +4,6 @@ ktor:
   application:
     modules:
       - com.example.smartcut.ApplicationKt.module
+
+app:
+  baseUrl: "http://192.168.1.5:8080"

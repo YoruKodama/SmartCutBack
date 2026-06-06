@@ -14,7 +14,15 @@ class RecipeService(private val recipeRepository: RecipeRepository) {
                 name = recipe.name,
                 cookingTime = recipe.cookingTime,
                 imageUrl = recipe.imageUrl,
-                userId = recipe.userId
+                userId = recipe.userId,
+                ingredients = recipe.ingredients.map { ingredient ->
+                    IngredientResponse(
+                        id = ingredient.id,
+                        name = ingredient.name,
+                        amount = ingredient.amount,
+                        cuttable = ingredient.cuttable
+                    )
+                }
             )
         }
     }
@@ -31,7 +39,8 @@ class RecipeService(private val recipeRepository: RecipeRepository) {
                 IngredientResponse(
                     id = ingredient.id,
                     name = ingredient.name,
-                    amount = ingredient.amount
+                    amount = ingredient.amount,
+                    cuttable = ingredient.cuttable
                 )
             }
         )
@@ -49,7 +58,8 @@ class RecipeService(private val recipeRepository: RecipeRepository) {
             recipeRepository.addIngredient(
                 name = ingredientRequest.name,
                 amount = ingredientRequest.amount,
-                recipeId = recipe.id
+                recipeId = recipe.id,
+                cuttable = ingredientRequest.cuttable
             )
         }
 
@@ -63,9 +73,14 @@ class RecipeService(private val recipeRepository: RecipeRepository) {
                 IngredientResponse(
                     id = ingredient.id,
                     name = ingredient.name,
-                    amount = ingredient.amount
+                    amount = ingredient.amount,
+                    cuttable = ingredient.cuttable
                 )
             }
         )
+    }
+
+    suspend fun delete(id: Int) {
+        recipeRepository.delete(id)
     }
 }
