@@ -17,11 +17,11 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
 
-    configureSerialization()
-    configureErrorHandling()
+    configureSerialization() //запускаем JSon сериализацию
+    configureErrorHandling() // обрабатываем ошибки
     DatabaseFactory.init()
-    configureSecurity()
-    configureRouting()
+    configureSecurity() // JWT
+    configureRouting() //запускаем роуты
 
     val baseUrl = environment.config.propertyOrNull("app.baseUrl")?.getString() ?: "http://localhost:8080"
     kotlinx.coroutines.runBlocking {
@@ -29,7 +29,7 @@ fun Application.module() {
     }
 }
 fun Application.configureErrorHandling() {
-    install(StatusPages) {
+    install(StatusPages) { //ktorовский плагин для перехвата исключений
         exception<IllegalStateException> { call, cause ->
             call.respond(HttpStatusCode.BadRequest, cause.message ?: "Ошибка")
         }

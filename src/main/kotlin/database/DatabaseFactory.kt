@@ -11,7 +11,7 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object DatabaseFactory {
-
+// настриол пул соединений
     fun init() {
         val config = HikariConfig().apply {
             jdbcUrl = "jdbc:postgresql://localhost:5432/smartcut_app"

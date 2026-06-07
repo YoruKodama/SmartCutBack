@@ -6,9 +6,9 @@ import com.example.smartcut.models.domain.User
 import com.example.smartcut.models.dto.AuthResponse
 import com.example.smartcut.models.dto.LoginRequest
 import com.example.smartcut.models.dto.RegisterRequest
-import com.example.smartcut.plugins.JWT_AUDIENCE
-import com.example.smartcut.plugins.JWT_ISSUER
-import com.example.smartcut.plugins.JWT_SECRET
+import com.example.smartcut.plugins.JWT_AUDIENCE //константа для кого выдал токен
+import com.example.smartcut.plugins.JWT_ISSUER //кто выдал токен
+import com.example.smartcut.plugins.JWT_SECRET //секретный ключ
 import com.example.smartcut.repositories.UserRepository
 import java.util.Date
 
@@ -17,7 +17,7 @@ class AuthService(private val userRepository: UserRepository) {
     suspend fun register(request: RegisterRequest): AuthResponse {
         val existing = userRepository.findByEmail(request.email)
         if (existing != null) error("Пользователь с таким email уже существует")
-
+        //регистрация нового пользователя хэшируем пароль, создаем в бд, возвращаем токен
         val passwordHash = hashPassword(request.password)
         val user = userRepository.create(request.name, request.email, passwordHash)
         val token = generateToken(user)
